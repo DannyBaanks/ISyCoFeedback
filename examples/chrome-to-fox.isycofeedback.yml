@@ -1,0 +1,16 @@
+version: 1
+project:
+  name: Chrome-to-Fox
+commands:
+  run: chrome2fox analyze corpus/simple-popup
+  reproduce: chrome2fox convert corpus/simple-popup -o output/simple-popup
+  test: py -m pytest -q
+  verify: chrome2fox validate output/simple-popup
+retry:
+  max_attempts: 3
+repair:
+  enabled: false
+github:
+  issues: true
+  fork: true
+  pull_requests: true

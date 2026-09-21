@@ -1,0 +1,7 @@
+version: 1
+project:
+  name: fail-repo
+commands:
+  test: exit 1
+retry:
+  max_attempts: 3
