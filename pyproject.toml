@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "isycofeedback"
+version = "0.1.0"
+description = "A repository-agnostic surface for running, verifying, repairing, and contributing fixes"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = ["PyYAML>=6.0"]
+
+[project.scripts]
+isycofeedback = "isycofeedback.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
