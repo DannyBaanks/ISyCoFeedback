@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+import json
 
 from isycofeedback.cli import main
 
@@ -39,3 +40,18 @@ def test_issue_and_pr_require_dry_run_and_show_payload(tmp_path: Path, capsys) -
 
     assert main(["pr", "--path", str(tmp_path), "--dry-run"]) == 0
     assert "UNVERIFIED" in capsys.readouterr().out
+
+
+def test_issue_uses_most_recent_receipt(tmp_path: Path, capsys) -> None:
+    (tmp_path / ".isycofeedback.yml").write_text(_manifest("echo latest"), encoding="utf-8")
+    main(["test", "--path", str(tmp_path)])
+    capsys.readouterr()
+    main(["test", "--path", str(tmp_path)])
+    capsys.readouterr()
+    receipts = sorted((tmp_path / ".isycofeedback/receipts").glob("*.json"))
+    newest = max(receipts, key=lambda path: json.loads(path.read_text())["created_at"])
+    newest_id = json.loads(newest.read_text())["run_id"]
+
+    assert main(["issue", "--path", str(tmp_path), "--dry-run"]) == 0
+
+    assert newest_id in capsys.readouterr().out

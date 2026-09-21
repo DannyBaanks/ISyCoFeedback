@@ -146,11 +146,15 @@ def _collaboration(action: str, repository: Path, dry_run: bool) -> int:
     if not dry_run:
         print("REMOTE_MUTATION_REQUIRES_DRY_RUN")
         return 1
-    receipts = sorted((repository / ".isycofeedback" / "receipts").glob("*.json"))
+    receipts = list((repository / ".isycofeedback" / "receipts").glob("*.json"))
     if not receipts:
         print("NO_EVIDENCE")
         return 1
-    receipt = json.loads(receipts[-1].read_text(encoding="utf-8"))
+    receipt_path = max(
+        receipts,
+        key=lambda path: json.loads(path.read_text(encoding="utf-8")).get("created_at", ""),
+    )
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
     project = load_manifest(repository).project_name
     head_result = subprocess.run(
         ["git", "-C", str(repository), "rev-parse", "HEAD"],
