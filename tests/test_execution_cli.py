@@ -55,3 +55,30 @@ def test_issue_uses_most_recent_receipt(tmp_path: Path, capsys) -> None:
     assert main(["issue", "--path", str(tmp_path), "--dry-run"]) == 0
 
     assert newest_id in capsys.readouterr().out
+
+
+def test_test_command_can_use_external_manifest(tmp_path: Path, capsys) -> None:
+    manifest_path = tmp_path / "contract.yml"
+    repository = tmp_path / "repository"
+    repository.mkdir()
+    manifest_path.write_text(_manifest("echo external"), encoding="utf-8")
+
+    assert main(["test", "--path", str(repository), "--manifest", str(manifest_path)]) == 0
+
+    assert "TEST  PASS" in capsys.readouterr().out
+
+
+def test_external_manifest_can_store_evidence_outside_consumer(tmp_path: Path, capsys) -> None:
+    manifest_path = tmp_path / "contract.yml"
+    repository = tmp_path / "repository"
+    evidence = tmp_path / "evidence"
+    repository.mkdir()
+    manifest_path.write_text(_manifest("echo external"), encoding="utf-8")
+
+    assert main([
+        "test", "--path", str(repository), "--manifest", str(manifest_path), "--evidence-path", str(evidence)
+    ]) == 0
+
+    assert list((evidence / ".isycofeedback/receipts").glob("*.json"))
+    assert not (repository / ".isycofeedback").exists()
+    capsys.readouterr()

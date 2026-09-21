@@ -31,9 +31,9 @@ class Manifest:
         return frozenset(self.commands)
 
 
-def load_manifest(repository: Path) -> Manifest:
-    """Load ``.isycofeedback.yml`` from *repository* and validate its contract."""
-    path = repository / MANIFEST_NAME
+def load_manifest(repository: Path, manifest_path: Path | None = None) -> Manifest:
+    """Load a project manifest, optionally from an external contract path."""
+    path = manifest_path or repository / MANIFEST_NAME
     if not path.is_file():
         raise ManifestError(f"manifest not found: {path}")
 

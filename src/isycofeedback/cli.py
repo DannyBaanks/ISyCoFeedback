@@ -36,15 +36,15 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "init":
         return _init(args.path, args.name)
     if args.command == "doctor":
-        return _doctor(args.path)
+        return _doctor(args.path, args.manifest)
     if args.command == "capabilities":
-        return _capabilities(args.path)
+        return _capabilities(args.path, args.manifest)
     if args.command in {"run", "test", "verify", "reproduce"}:
-        return _execute(args.command, args.path)
+        return _execute(args.command, args.path, args.manifest, args.evidence_path)
     if args.command == "retry":
-        return _retry(args.path)
+        return _retry(args.path, args.manifest, args.evidence_path)
     if args.command in {"issue", "pr"}:
-        return _collaboration(args.command, args.path, args.dry_run)
+        return _collaboration(args.command, args.path, args.dry_run, args.manifest, args.evidence_path)
     parser.error(f"unsupported command: {args.command}")
 
 
@@ -54,10 +54,15 @@ def _parser() -> argparse.ArgumentParser:
     for name in ("doctor", "capabilities", "run", "test", "verify", "retry", "reproduce"):
         command = subparsers.add_parser(name)
         command.add_argument("--path", type=Path, default=Path.cwd())
+        command.add_argument("--manifest", type=Path)
+        if name in {"run", "test", "verify", "retry", "reproduce"}:
+            command.add_argument("--evidence-path", type=Path)
     for name in ("issue", "pr"):
         command = subparsers.add_parser(name)
         command.add_argument("--path", type=Path, default=Path.cwd())
+        command.add_argument("--manifest", type=Path)
         command.add_argument("--dry-run", action="store_true")
+        command.add_argument("--evidence-path", type=Path)
     init = subparsers.add_parser("init")
     init.add_argument("--path", type=Path, default=Path.cwd())
     init.add_argument("--name")
@@ -78,8 +83,8 @@ def _init(repository: Path, name: str | None) -> int:
     return 0
 
 
-def _doctor(repository: Path) -> int:
-    for key, value in diagnose(repository).items():
+def _doctor(repository: Path, manifest_path: Path | None = None) -> int:
+    for key, value in diagnose(repository, manifest_path).items():
         if key == "manifest_error":
             print(f"MANIFEST_ERROR  {value}")
         elif isinstance(value, list):
@@ -89,9 +94,9 @@ def _doctor(repository: Path) -> int:
     return 0
 
 
-def _capabilities(repository: Path) -> int:
+def _capabilities(repository: Path, manifest_path: Path | None = None) -> int:
     try:
-        manifest = load_manifest(repository)
+        manifest = load_manifest(repository, manifest_path)
     except ManifestError as error:
         print(f"CONFIGURATION_FAILURE  {error}")
         return 1
@@ -105,9 +110,9 @@ def _capabilities(repository: Path) -> int:
     return 0
 
 
-def _execute(action: str, repository: Path) -> int:
+def _execute(action: str, repository: Path, manifest_path: Path | None = None, evidence_path: Path | None = None) -> int:
     try:
-        manifest = load_manifest(repository)
+        manifest = load_manifest(repository, manifest_path)
     except ManifestError as error:
         print(f"CONFIGURATION_FAILURE  {error}")
         return 1
@@ -116,7 +121,7 @@ def _execute(action: str, repository: Path) -> int:
         print(f"UNSUPPORTED_CAPABILITY  {action}")
         return 1
     result = run_command(command, repository)
-    receipt = save_receipt(repository, create_receipt(action, result))
+    receipt = save_receipt(evidence_path or repository, create_receipt(action, result))
     print(f"{action.upper()}  {result.verdict}")
     print(f"Receipt: {receipt}")
     if result.stderr:
@@ -124,9 +129,9 @@ def _execute(action: str, repository: Path) -> int:
     return 0 if result.verdict == "PASS" else 1
 
 
-def _retry(repository: Path) -> int:
+def _retry(repository: Path, manifest_path: Path | None = None, evidence_path: Path | None = None) -> int:
     try:
-        manifest = load_manifest(repository)
+        manifest = load_manifest(repository, manifest_path)
     except ManifestError as error:
         print(f"CONFIGURATION_FAILURE  {error}")
         return 1
@@ -136,17 +141,23 @@ def _retry(repository: Path) -> int:
         return 1
     retry_result = retry_command(command, repository, manifest.max_attempts)
     for number, result in enumerate(retry_result.attempts, start=1):
-        save_receipt(repository, create_receipt("retry", result))
+        save_receipt(evidence_path or repository, create_receipt("retry", result))
         print(f"ATTEMPT {number}/{manifest.max_attempts}  {result.verdict}")
     print(f"{retry_result.final_verdict}")
     return 0 if retry_result.final_verdict == "PASS" else 1
 
 
-def _collaboration(action: str, repository: Path, dry_run: bool) -> int:
+def _collaboration(
+    action: str,
+    repository: Path,
+    dry_run: bool,
+    manifest_path: Path | None = None,
+    evidence_path: Path | None = None,
+) -> int:
     if not dry_run:
         print("REMOTE_MUTATION_REQUIRES_DRY_RUN")
         return 1
-    receipts = list((repository / ".isycofeedback" / "receipts").glob("*.json"))
+    receipts = list(((evidence_path or repository) / ".isycofeedback" / "receipts").glob("*.json"))
     if not receipts:
         print("NO_EVIDENCE")
         return 1
@@ -155,7 +166,7 @@ def _collaboration(action: str, repository: Path, dry_run: bool) -> int:
         key=lambda path: json.loads(path.read_text(encoding="utf-8")).get("created_at", ""),
     )
     receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
-    project = load_manifest(repository).project_name
+    project = load_manifest(repository, manifest_path).project_name
     head_result = subprocess.run(
         ["git", "-C", str(repository), "rev-parse", "HEAD"],
         capture_output=True,

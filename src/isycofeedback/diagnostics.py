@@ -7,7 +7,7 @@ import subprocess
 from isycofeedback.manifest import ManifestError, load_manifest
 
 
-def diagnose(repository: Path) -> dict[str, object]:
+def diagnose(repository: Path, manifest_path: Path | None = None) -> dict[str, object]:
     """Return a machine-readable doctor report without exposing credentials."""
     report: dict[str, object] = {
         "git": "PASS" if _is_git_repository(repository) else "NO",
@@ -15,7 +15,7 @@ def diagnose(repository: Path) -> dict[str, object]:
         "python": "AVAILABLE",
     }
     try:
-        manifest = load_manifest(repository)
+        manifest = load_manifest(repository, manifest_path)
     except ManifestError as error:
         report["manifest"] = "FAIL"
         report["manifest_error"] = str(error)
