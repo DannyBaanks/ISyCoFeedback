@@ -1,57 +1,63 @@
 # ✨ ISyCoFeedback
 
-## When a project breaks, it should leave you with a way forward.
+<p align="center">
+  <strong>Cuando un proyecto falla, debería dejarte un camino para seguir.</strong>
+</p>
 
-ISyCoFeedback is a friendly command-line companion for any repository.
+<p align="center">
+  <a href="README_EN.md">🇬🇧 English version</a>
+</p>
 
-It helps you:
+ISyCoFeedback es un compañero de terminal para cualquier repositorio.
+
+Te ayuda a:
 
 ```text
-run it       →  see what happened
-test it      →  know if it really works
-try again    →  stop after three honest attempts
-save proof   →  keep the useful details
-ask for help →  prepare an issue or contribution
+ejecutarlo   →  ver qué pasó
+probarlo     →  saber si realmente funciona
+reintentarlo →  detenerse después de tres intentos honestos
+guardar      →  conservar la evidencia útil
+pedir ayuda  →  preparar un issue o una contribución
 ```
 
-No magic “fixed!” messages. No endless retry loops. No lost context.
+Sin mensajes mágicos de “¡arreglado!”. Sin ciclos infinitos. Sin perder el contexto.
 
-Just a calm, repeatable path from **“it broke”** to **“here is what we know.”**
+Sólo un camino tranquilo y repetible desde **“se rompió”** hasta **“esto es lo que sabemos.”**
 
-> **Status:** `0.1.0 ALPHA` — already demonstrated against the real
-> Chrome-to-Fox repository through an external local contract. The project is
-> young, but the core promise is working.
+> **Estado:** `0.1.0 ALPHA` — ya demostrado contra el repositorio real de
+> Chrome-to-Fox mediante un contrato local externo. El proyecto es joven,
+> pero la promesa central ya funciona.
 
 ---
 
-## The idea in one picture
+## La idea en una imagen
 
 ```text
 ┌──────────────────────┐
-│      Your project    │
-│  any language, any   │
-│  build, any workflow │
+│      Tu proyecto     │
+│ cualquier lenguaje,  │
+│ build o workflow     │
 └──────────┬───────────┘
-           │  a tiny local contract
+           │  un contrato local pequeño
            ▼
 ┌──────────────────────┐
 │   ISyCoFeedback      │
 │                      │
 │  run • test • verify │
-│  retry • repair     │
-│  evidence • share   │
+│ retry • repair      │
+│ evidencia • compartir│
 └──────────┬───────────┘
            ▼
 ┌──────────────────────┐
-│  A useful next step  │
-│  not just a red mark │
+│  Un siguiente paso  │
+│  no sólo una marca roja │
 └──────────────────────┘
 ```
 
-Your project keeps ownership of its own commands. ISyCoFeedback simply gives
-those commands a consistent, human-friendly surface.
+Tu proyecto conserva el control de sus comandos. ISyCoFeedback simplemente les
+da una superficie consistente y fácil de entender.
 
-## A tiny demo
+## Una demo pequeña
 
 ```console
 $ isycofeedback test
@@ -62,43 +68,43 @@ ATTEMPT 1/3  FAIL
 ATTEMPT 2/3  FAIL
 ATTEMPT 3/3  FAIL
 
-Repair budget exhausted.
-Evidence saved.
-Next steps: issue • fork • pull request
+Presupuesto de reparación agotado.
+Evidencia guardada.
+Siguientes pasos: issue • fork • pull request
 ```
 
-The important part is not the red output. It is that the failure is now
-captured, reproducible, and ready to be understood by another person.
+Lo importante no es que la salida sea roja. Es que el fallo queda capturado,
+reproducible y listo para que otra persona lo entienda.
 
-## Why people use it
+## Por qué usarlo
 
-### 🧭 Less guessing
+### 🧭 Menos adivinanzas
 
-You can see the command, the folder, the timing, the output, and the exact
-result of every attempt.
+Puedes ver el comando, la carpeta, los tiempos, la salida y el resultado exacto
+de cada intento.
 
-### 🧱 No endless loops
+### 🧱 No hay ciclos infinitos
 
-The default repair budget is three attempts. Then it stops and shows you the
-next useful actions.
+El presupuesto de reparación por defecto es de tres intentos. Después se
+detiene y muestra las siguientes acciones útiles.
 
-### 🧾 No “trust me” success
+### 🧾 No hay éxitos de “confía en mí”
 
-A project is only marked `PASS` when its real verification command passes.
+Un proyecto sólo recibe `PASS` cuando su comando real de verificación pasa.
 
-### 🛟 Better handoffs
+### 🛟 Mejores relevos
 
-When something fails, the saved evidence can become the starting point for an
-issue, a fork, or a pull request.
+Cuando algo falla, la evidencia guardada puede convertirse en el punto de
+partida de un issue, un fork o un pull request.
 
-### 🌍 Works with your project
+### 🌍 Funciona con tu proyecto
 
-Python, JavaScript, Rust, shell scripts, build tools, or something wonderfully
-strange — the project defines its own commands.
+Python, JavaScript, Rust, scripts de shell, herramientas de build o algo
+maravillosamente extraño: el proyecto define sus propios comandos.
 
-## Try it in two minutes
+## Pruébalo en dos minutos
 
-From a repository you want to give a feedback surface to:
+Desde el repositorio al que quieras darle esta superficie:
 
 ```console
 $ isycofeedback init
@@ -107,8 +113,8 @@ $ isycofeedback capabilities
 $ isycofeedback test
 ```
 
-The first command creates a small `.isycofeedback.yml` file. It does not try
-to guess your project’s meaning or silently invent a workflow.
+El primer comando crea un archivo pequeño `.isycofeedback.yml`. No intenta
+adivinar el significado de tu proyecto ni inventar un workflow en silencio.
 
 Example:
 
@@ -127,12 +133,12 @@ retry:
   max_attempts: 3
 ```
 
-That is the whole idea: your repository declares the buttons; ISyCoFeedback
-makes them consistent.
+Esa es toda la idea: tu repositorio declara los botones; ISyCoFeedback los
+vuelve consistentes.
 
-## Real-world proof: Chrome-to-Fox
+## Prueba real: Chrome-to-Fox
 
-ISyCoFeedback has already run the real Chrome-to-Fox test suite with:
+ISyCoFeedback ya ejecutó la suite real de Chrome-to-Fox con:
 
 ```text
 GIT  PASS
@@ -141,56 +147,57 @@ PROJECT  Chrome-to-Fox
 TEST  PASS
 ```
 
-The evidence was stored outside the consumer repository, so the consumer was
-not modified during the demonstration.
+La evidencia se guardó fuera del repositorio consumidor, así que no se modificó
+durante la demostración.
 
-It also caught a real behavior difference: Chrome-to-Fox’s analyzer printed
-an empty error list while returning a failure exit code. ISyCoFeedback kept
-that result as `FAIL` instead of pretending the text meant success.
+También detectó una diferencia real: el analizador de Chrome-to-Fox imprimió
+una lista de errores vacía, pero devolvió un código de salida de fallo.
+ISyCoFeedback conservó el resultado como `FAIL` en vez de fingir que el texto
+significaba éxito.
 
 See the full, honest transcript in
 [docs/DEMO-CHROME-TO-FOX.md](docs/DEMO-CHROME-TO-FOX.md).
 
-## What happens to your private data?
+## ¿Qué pasa con tus datos privados?
 
-- Project configuration contains commands, not credentials.
-- Receipts are local and ignored by Git by default.
-- API keys are never written into project manifests or receipts.
-- Optional AI repair receives a bounded failure envelope, not your whole
-  repository by default.
-- GitHub actions are currently prepared as dry-runs before any remote change.
+- La configuración contiene comandos, no credenciales.
+- Los recibos son locales y Git los ignora por defecto.
+- Las API keys nunca se escriben en manifests ni recibos.
+- La reparación opcional con IA recibe un resumen acotado del fallo, no todo tu
+  repositorio por defecto.
+- Las acciones de GitHub se preparan como dry-runs antes de cualquier cambio remoto.
 
-## What is ready today?
+## ¿Qué está listo hoy?
 
-| Experience | Status |
+| Experiencia | Estado |
 |---|---|
-| `init`, `doctor`, `capabilities` | ✅ Working |
-| Run, test, verify, reproduce | ✅ Working |
-| Receipts and evidence | ✅ Working |
-| Three-attempt retry boundary | ✅ Working |
-| Patch-based fake repair | ✅ Working |
-| OpenAI-compatible request builder | ✅ Working |
-| GitHub issue / PR dry-run | ✅ Working |
-| Firefox browser demonstration | 🚧 Next milestone |
-| Live provider request | ⚠️ Needs an unsandboxed integration run |
+| `init`, `doctor`, `capabilities` | ✅ Funciona |
+| run, test, verify, reproduce | ✅ Funciona |
+| Recibos y evidencia | ✅ Funciona |
+| Límite de tres intentos | ✅ Funciona |
+| Reparación fake mediante patches | ✅ Funciona |
+| Constructor OpenAI-compatible | ✅ Funciona |
+| GitHub issue / PR dry-run | ✅ Funciona |
+| Demostración con Firefox | 🚧 Siguiente milestone |
+| Petición real al proveedor | ⚠️ Falta una prueba de integración externa |
 
-## The promise
+## La promesa
 
-ISyCoFeedback does not try to become your build system, your project manager,
-or your repository’s brain.
+ISyCoFeedback no intenta convertirse en tu sistema de build, tu project
+manager ni el cerebro de tu repositorio.
 
-It is the small layer that makes failure understandable and contribution
-possible.
+Es la capa pequeña que hace que un fallo sea entendible y que contribuir sea
+posible.
 
-## Development
+## Desarrollo
 
 ```console
 $ PYTHONPATH=src py -m pytest -q
 27 passed
 ```
 
-The product roadmap lives in [docs/ROADMAP.md](docs/ROADMAP.md).
+El roadmap vive en [docs/ROADMAP.md](docs/ROADMAP.md).
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT. Consulta [LICENSE](LICENSE).
