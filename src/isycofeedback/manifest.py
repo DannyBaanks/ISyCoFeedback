@@ -24,6 +24,7 @@ class Manifest:
     project_name: str
     commands: dict[str, str]
     max_attempts: int = 3
+    github: dict[str, bool] | None = None
 
     @property
     def capabilities(self) -> frozenset[str]:
@@ -60,7 +61,11 @@ def load_manifest(repository: Path) -> Manifest:
     if not isinstance(max_attempts, int) or isinstance(max_attempts, bool) or not 1 <= max_attempts <= 3:
         raise ManifestError("max_attempts must be between 1 and 3")
 
-    return Manifest(project_name=project["name"], commands=commands, max_attempts=max_attempts)
+    github = data.get("github", {})
+    if not isinstance(github, dict):
+        raise ManifestError("github must be a mapping")
+    github_flags = {key: value for key, value in github.items() if isinstance(key, str) and isinstance(value, bool)}
+    return Manifest(project_name=project["name"], commands=commands, max_attempts=max_attempts, github=github_flags)
 
 
 def _read_commands(value: Any) -> dict[str, str]:
