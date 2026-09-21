@@ -2,10 +2,10 @@ version: 1
 project:
   name: Chrome-to-Fox
 commands:
-  run: chrome2fox analyze corpus/simple-popup
-  reproduce: chrome2fox convert corpus/simple-popup -o output/simple-popup
-  test: py -m pytest -q
-  verify: chrome2fox validate output/simple-popup
+  run: PYTHONPATH=src py -m chrome2fox.cli analyze corpus/simple-popup
+  reproduce: PYTHONPATH=src py -m chrome2fox.cli convert corpus/simple-popup -o output/simple-popup
+  test: PYTHONPATH=src py -m pytest -q
+  verify: PYTHONPATH=src py -m chrome2fox.cli validate output/simple-popup
 retry:
   max_attempts: 3
 repair:
