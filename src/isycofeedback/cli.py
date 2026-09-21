@@ -1,10 +1,13 @@
 """Command-line entry point for ISyCoFeedback."""
 
 import argparse
+import json
 from pathlib import Path
+import subprocess
 import sys
 
 from isycofeedback.diagnostics import diagnose
+from isycofeedback.collaboration.github import build_issue_payload, build_pr_payload
 from isycofeedback.manifest import MANIFEST_NAME, ManifestError, load_manifest
 from isycofeedback.receipts import create_receipt, save_receipt
 from isycofeedback.retry import retry_command
@@ -40,6 +43,8 @@ def main(argv: list[str] | None = None) -> int:
         return _execute(args.command, args.path)
     if args.command == "retry":
         return _retry(args.path)
+    if args.command in {"issue", "pr"}:
+        return _collaboration(args.command, args.path, args.dry_run)
     parser.error(f"unsupported command: {args.command}")
 
 
@@ -49,6 +54,10 @@ def _parser() -> argparse.ArgumentParser:
     for name in ("doctor", "capabilities", "run", "test", "verify", "retry", "reproduce"):
         command = subparsers.add_parser(name)
         command.add_argument("--path", type=Path, default=Path.cwd())
+    for name in ("issue", "pr"):
+        command = subparsers.add_parser(name)
+        command.add_argument("--path", type=Path, default=Path.cwd())
+        command.add_argument("--dry-run", action="store_true")
     init = subparsers.add_parser("init")
     init.add_argument("--path", type=Path, default=Path.cwd())
     init.add_argument("--name")
@@ -131,6 +140,29 @@ def _retry(repository: Path) -> int:
         print(f"ATTEMPT {number}/{manifest.max_attempts}  {result.verdict}")
     print(f"{retry_result.final_verdict}")
     return 0 if retry_result.final_verdict == "PASS" else 1
+
+
+def _collaboration(action: str, repository: Path, dry_run: bool) -> int:
+    if not dry_run:
+        print("REMOTE_MUTATION_REQUIRES_DRY_RUN")
+        return 1
+    receipts = sorted((repository / ".isycofeedback" / "receipts").glob("*.json"))
+    if not receipts:
+        print("NO_EVIDENCE")
+        return 1
+    receipt = json.loads(receipts[-1].read_text(encoding="utf-8"))
+    project = load_manifest(repository).project_name
+    head_result = subprocess.run(
+        ["git", "-C", str(repository), "rev-parse", "HEAD"],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    git_head = head_result.stdout.strip() if head_result.returncode == 0 else "unknown"
+    payload = build_issue_payload(project, git_head, receipt) if action == "issue" else build_pr_payload(project, git_head, receipt, verified=False)
+    print("DRY-RUN")
+    print(json.dumps(payload, indent=2, ensure_ascii=False))
+    return 0
 
 
 def _print_menu() -> None:

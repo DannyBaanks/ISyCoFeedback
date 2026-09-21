@@ -25,3 +25,17 @@ def test_retry_command_stops_after_three_failures(tmp_path: Path, capsys) -> Non
     output = capsys.readouterr().out
     assert output.count("ATTEMPT") == 3
     assert "REPAIR_EXHAUSTED" in output
+
+
+def test_issue_and_pr_require_dry_run_and_show_payload(tmp_path: Path, capsys) -> None:
+    (tmp_path / ".isycofeedback.yml").write_text(_manifest("false"), encoding="utf-8")
+    main(["test", "--path", str(tmp_path)])
+    capsys.readouterr()
+
+    assert main(["issue", "--path", str(tmp_path), "--dry-run"]) == 0
+    issue_output = capsys.readouterr().out
+    assert "DRY-RUN" in issue_output
+    assert "Failure in Fixture" in issue_output
+
+    assert main(["pr", "--path", str(tmp_path), "--dry-run"]) == 0
+    assert "UNVERIFIED" in capsys.readouterr().out
