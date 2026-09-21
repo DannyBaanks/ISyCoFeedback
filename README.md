@@ -33,25 +33,28 @@ Sólo un camino tranquilo y repetible desde **“se rompió”** hasta **“esto
 ## La idea en una imagen
 
 ```text
-┌──────────────────────────────────────────┐
-│               Tu proyecto                │
-│       cualquier lenguaje, build o        │
-│                 workflow                 │
-└──────────────────────┬───────────────────┘
-                       │  un contrato local pequeño
-                       ▼
-┌──────────────────────────────────────────┐
-│              ISyCoFeedback                │
-│                                          │
-│          run • test • verify              │
-│          retry • repair                   │
-│          evidencia • compartir            │
-└──────────────────────┬───────────────────┘
-                       ▼
-┌──────────────────────────────────────────┐
-│             Un siguiente paso             │
-│          no sólo una marca roja           │
-└──────────────────────────────────────────┘
++------------------------------------------+
+|               Tu proyecto                |
+|      Python · JS · GlyphFuck · lo que sea |
+|             build o workflow              |
++---------------------+--------------------+
+                      |
+              contrato local pequeño
+                      |
+                      v
++------------------------------------------+
+|              ISyCoFeedback                |
+|                                          |
+|          run · test · verify              |
+|          retry · repair                   |
+|          evidencia · compartir            |
++---------------------+--------------------+
+                      |
+                      v
++------------------------------------------+
+|             Un siguiente paso             |
+|          no sólo una marca roja           |
++------------------------------------------+
 ```
 
 Tu proyecto conserva el control de sus comandos. ISyCoFeedback simplemente les
