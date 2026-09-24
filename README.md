@@ -134,10 +134,19 @@ commands:
 
 retry:
   max_attempts: 3
+
+secrets:            # solo NOMBRES de variables de entorno, nunca valores
+  - GITHUB_TOKEN
 ```
 
 Esa es toda la idea: tu repositorio declara los botones; ISyCoFeedback los
 vuelve consistentes.
+
+**Secretos.** En `secrets:` van los nombres de las variables de entorno, no
+los valores, así que el manifiesto nunca contiene un secreto. Al correr,
+ISyCoFeedback lee esos valores del entorno y los cambia por `[REDACTED]` en los
+recibos y en el stderr que imprime. Los recibos quedan en `.isycofeedback/`,
+que se crea con su propio `.gitignore` para que no se cuelen en un commit.
 
 ## Prueba real: Chrome-to-Fox
 

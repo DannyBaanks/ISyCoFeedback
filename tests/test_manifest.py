@@ -51,3 +51,17 @@ def test_unknown_command_is_not_exposed_as_a_capability(tmp_path: Path) -> None:
     manifest = load_manifest(tmp_path)
 
     assert manifest.commands == {"test": "echo test"}
+
+
+def test_secrets_are_env_names_not_values(tmp_path: Path) -> None:
+    base = "version: 1\nproject:\n  name: Fixture\ncommands:\n  test: echo test\n"
+    (tmp_path / ".isycofeedback.yml").write_text(base + "secrets:\n  - GITHUB_TOKEN\n", encoding="utf-8")
+    assert load_manifest(tmp_path).secret_env == ("GITHUB_TOKEN",)
+
+    (tmp_path / ".isycofeedback.yml").write_text(base + "secrets:\n  - ghp_live value\n", encoding="utf-8")
+    with pytest.raises(ManifestError, match="environment variable names"):
+        load_manifest(tmp_path)
+
+    (tmp_path / ".isycofeedback.yml").write_text(base + "secrets: GITHUB_TOKEN\n", encoding="utf-8")
+    with pytest.raises(ManifestError, match="environment variable names"):
+        load_manifest(tmp_path)

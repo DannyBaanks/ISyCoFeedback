@@ -17,12 +17,16 @@ class RepairResult:
 
 
 def apply_patch_files(repository: Path, patches: list[dict[str, str]]) -> list[Path]:
-    """Apply exact-content patches that remain inside *repository*."""
-    changed: list[Path] = []
+    """Apply exact-content patches that remain inside *repository*.
+
+    All-or-nothing: every patch is checked before any file is written, and if a
+    write fails midway the files already written are put back.
+    """
+    root = repository.resolve()
+    planned: list[tuple[Path, Path, str, str]] = []
     for patch in patches:
         relative = Path(patch["path"])
         target = (repository / relative).resolve()
-        root = repository.resolve()
         if target != root and root not in target.parents:
             raise ValueError(f"patch path outside repository: {relative}")
         if not target.is_file():
@@ -30,9 +34,18 @@ def apply_patch_files(repository: Path, patches: list[dict[str, str]]) -> list[P
         current = target.read_text(encoding="utf-8")
         if current != patch["old_content"]:
             raise ValueError(f"patch precondition failed: {relative}")
-        target.write_text(patch["new_content"], encoding="utf-8")
-        changed.append(relative)
-    return changed
+        planned.append((relative, target, current, patch["new_content"]))
+
+    written: list[tuple[Path, str]] = []
+    try:
+        for _, target, current, new_content in planned:
+            target.write_text(new_content, encoding="utf-8")
+            written.append((target, current))
+    except OSError:
+        for target, current in reversed(written):
+            target.write_text(current, encoding="utf-8")
+        raise
+    return [relative for relative, _, _, _ in planned]
 
 
 def repair_command(

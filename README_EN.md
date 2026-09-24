@@ -78,7 +78,16 @@ commands:
 
 retry:
   max_attempts: 3
+
+secrets:            # environment variable NAMES only, never values
+  - GITHUB_TOKEN
 ```
+
+**Secrets.** `secrets:` lists environment variable names, not values, so the
+manifest never holds a secret. At run time ISyCoFeedback reads those values
+from the environment and replaces them with `[REDACTED]` in receipts and in the
+stderr it prints. Receipts live in `.isycofeedback/`, which is created with its
+own `.gitignore` so they never ride along in a commit.
 
 ## Real-world proof: Chrome-to-Fox
 

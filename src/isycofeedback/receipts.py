@@ -34,7 +34,12 @@ def create_receipt(action: str, result: CommandResult, secrets: list[str] | None
 
 def save_receipt(repository: Path, receipt: dict[str, object]) -> Path:
     """Write one receipt without overwriting any earlier run."""
-    path = repository / ".isycofeedback" / "receipts" / f"{receipt['run_id']}.json"
+    evidence_dir = repository / ".isycofeedback"
+    path = evidence_dir / "receipts" / f"{receipt['run_id']}.json"
     path.parent.mkdir(parents=True, exist_ok=True)
+    ignore = evidence_dir / ".gitignore"
+    if not ignore.exists():
+        # receipts hold raw command output; never let them ride along in a commit
+        ignore.write_text("*\n", encoding="utf-8")
     path.write_text(json.dumps(receipt, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return path

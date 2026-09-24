@@ -1,6 +1,7 @@
 """Load and validate the small project-local feedback contract."""
 
 from dataclasses import dataclass
+import re
 from pathlib import Path
 from typing import Any
 
@@ -25,6 +26,7 @@ class Manifest:
     commands: dict[str, str]
     max_attempts: int = 3
     github: dict[str, bool] | None = None
+    secret_env: tuple[str, ...] = ()
 
     @property
     def capabilities(self) -> frozenset[str]:
@@ -65,7 +67,29 @@ def load_manifest(repository: Path, manifest_path: Path | None = None) -> Manife
     if not isinstance(github, dict):
         raise ManifestError("github must be a mapping")
     github_flags = {key: value for key, value in github.items() if isinstance(key, str) and isinstance(value, bool)}
-    return Manifest(project_name=project["name"], commands=commands, max_attempts=max_attempts, github=github_flags)
+    return Manifest(
+        project_name=project["name"],
+        commands=commands,
+        max_attempts=max_attempts,
+        github=github_flags,
+        secret_env=_read_secret_env(data.get("secrets")),
+    )
+
+
+_ENV_NAME = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
+
+
+def _read_secret_env(value: Any) -> tuple[str, ...]:
+    """Names of environment variables whose values must never reach evidence.
+
+    The manifest holds names only; the values are read from the environment
+    at run time, so the project configuration itself never contains a secret.
+    """
+    if value is None:
+        return ()
+    if not isinstance(value, list) or not all(isinstance(name, str) and _ENV_NAME.fullmatch(name) for name in value):
+        raise ManifestError("secrets must be a list of environment variable names")
+    return tuple(value)
 
 
 def _read_commands(value: Any) -> dict[str, str]:

@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -9,7 +10,7 @@ import sys
 from isycofeedback.diagnostics import diagnose
 from isycofeedback.collaboration.github import build_issue_payload, build_pr_payload
 from isycofeedback.manifest import MANIFEST_NAME, ManifestError, load_manifest
-from isycofeedback.receipts import create_receipt, save_receipt
+from isycofeedback.receipts import create_receipt, redact, save_receipt
 from isycofeedback.retry import retry_command
 from isycofeedback.runner import run_command
 
@@ -120,13 +121,19 @@ def _execute(action: str, repository: Path, manifest_path: Path | None = None, e
     if command is None:
         print(f"UNSUPPORTED_CAPABILITY  {action}")
         return 1
+    secrets = _secret_values(manifest)
     result = run_command(command, repository)
-    receipt = save_receipt(evidence_path or repository, create_receipt(action, result))
+    receipt = save_receipt(evidence_path or repository, create_receipt(action, result, secrets))
     print(f"{action.upper()}  {result.verdict}")
     print(f"Receipt: {receipt}")
     if result.stderr:
-        print(result.stderr, file=sys.stderr, end="")
+        print(redact(result.stderr, secrets), file=sys.stderr, end="")
     return 0 if result.verdict == "PASS" else 1
+
+
+def _secret_values(manifest) -> list[str]:
+    """Current values of the environment variables the manifest names as secrets."""
+    return [os.environ[name] for name in manifest.secret_env if os.environ.get(name)]
 
 
 def _retry(repository: Path, manifest_path: Path | None = None, evidence_path: Path | None = None) -> int:
@@ -139,9 +146,10 @@ def _retry(repository: Path, manifest_path: Path | None = None, evidence_path: P
     if command is None:
         print("UNSUPPORTED_CAPABILITY  test")
         return 1
+    secrets = _secret_values(manifest)
     retry_result = retry_command(command, repository, manifest.max_attempts)
     for number, result in enumerate(retry_result.attempts, start=1):
-        save_receipt(evidence_path or repository, create_receipt("retry", result))
+        save_receipt(evidence_path or repository, create_receipt("retry", result, secrets))
         print(f"ATTEMPT {number}/{manifest.max_attempts}  {result.verdict}")
     print(f"{retry_result.final_verdict}")
     return 0 if retry_result.final_verdict == "PASS" else 1

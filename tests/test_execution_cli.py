@@ -82,3 +82,25 @@ def test_external_manifest_can_store_evidence_outside_consumer(tmp_path: Path, c
     assert list((evidence / ".isycofeedback/receipts").glob("*.json"))
     assert not (repository / ".isycofeedback").exists()
     capsys.readouterr()
+
+
+def test_named_secret_env_is_redacted_from_receipt_and_stderr(tmp_path: Path, capsys, monkeypatch) -> None:
+    monkeypatch.setenv("IFB_TEST_TOKEN", "tok-9f8e7d6c5b4a")
+    leak = f'"{sys.executable}" -c "import os,sys; t=os.environ[\'IFB_TEST_TOKEN\']; print(t); print(t, file=sys.stderr); sys.exit(1)"'
+    (tmp_path / ".isycofeedback.yml").write_text(_manifest(leak) + "secrets:\n  - IFB_TEST_TOKEN\n", encoding="utf-8")
+
+    assert main(["test", "--path", str(tmp_path)]) == 1
+
+    captured = capsys.readouterr()
+    assert "tok-9f8e7d6c5b4a" not in captured.out + captured.err
+    receipt = next((tmp_path / ".isycofeedback/receipts").glob("*.json")).read_text(encoding="utf-8")
+    assert "tok-9f8e7d6c5b4a" not in receipt
+    assert "[REDACTED]" in receipt
+
+
+def test_evidence_dir_ignores_itself_in_the_host_repo(tmp_path: Path) -> None:
+    (tmp_path / ".isycofeedback.yml").write_text(_manifest(f'"{sys.executable}" -c "print(1)"'), encoding="utf-8")
+
+    main(["test", "--path", str(tmp_path)])
+
+    assert (tmp_path / ".isycofeedback" / ".gitignore").read_text(encoding="utf-8") == "*\n"
