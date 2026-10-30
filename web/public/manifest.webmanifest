@@ -1,0 +1,17 @@
+{
+  "name": "GitBack Preview",
+  "short_name": "GitBack",
+  "description": "Local synthetic repair review preview",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3f5f9",
+  "theme_color": "#f3f5f9",
+  "icons": [
+    {
+      "src": "/gitback.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

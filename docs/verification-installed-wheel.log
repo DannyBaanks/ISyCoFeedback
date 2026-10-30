@@ -1,0 +1,13 @@
+Processing ./dist/isycofeedback-2.0.0a1-py3-none-any.whl
+Installing collected packages: isycofeedback
+Successfully installed isycofeedback-2.0.0a1
+REPAIR PASS (2 verifications; fixed proposal, no AI)
+SCOPE DENIED
+BUDGET REPAIR_EXHAUSTED (3 verifications)
+LEDGER VALID; retain head externally: a903c37458ef9f205920b5367d40a26ba739ddfb1ffaac3a48cda316180f333e
+TAMPER INVALID
+DOCUMENT REJECTED (unknown confidence, explicit demo rejection)
+EVIDENCE VALID
+2.0.0a1
+/tmp/installed/isycofeedback/__init__.py
+

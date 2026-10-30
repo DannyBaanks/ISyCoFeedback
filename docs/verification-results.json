@@ -1,0 +1,22 @@
+{
+  "suite": {
+    "exit": 0,
+    "tail": "........................................................................ [ 40%]\n........................................................................ [ 80%]\n...................................                                      [100%]\n179 passed in 2.06s\n"
+  },
+  "demo": {
+    "exit": 0,
+    "tail": "REPAIR PASS (2 verifications; fixed proposal, no AI)\nSCOPE DENIED\nBUDGET REPAIR_EXHAUSTED (3 verifications)\nLEDGER VALID; retain head externally: 9af2b4fdd10a1f82893fae7028fc2c393bb26f1bbbb2f690ca0bc264b1b42253\nTAMPER INVALID\n"
+  },
+  "documents": {
+    "exit": 0,
+    "tail": "DOCUMENT REJECTED (unknown confidence, explicit demo rejection)\nEVIDENCE VALID\n"
+  },
+  "wheel": {
+    "exit": 0,
+    "tail": "perations/runner.py'\nadding 'isycofeedback/operations/persistence/__init__.py'\nadding 'isycofeedback/operations/persistence/errors.py'\nadding 'isycofeedback/operations/persistence/memory.py'\nadding 'isycofeedback/operations/persistence/protocol.py'\nadding 'isycofeedback/operations/persistence/repository.py'\nadding 'isycofeedback/operations/persistence/sqlite.py'\nadding 'isycofeedback/providers/__init__.py'\nadding 'isycofeedback/providers/openai_compatible.py'\nadding 'isycofeedback-2.0.0a1.dist-info/LICENSE'\nadding 'isycofeedback-2.0.0a1.dist-info/METADATA'\nadding 'isycofeedback-2.0.0a1.dist-info/WHEEL'\nadding 'isycofeedback-2.0.0a1.dist-info/entry_points.txt'\nadding 'isycofeedback-2.0.0a1.dist-info/top_level.txt'\nadding 'isycofeedback-2.0.0a1.dist-info/RECORD'\nremoving build/bdist.linux-x86_64/wheel\nisycofeedback-2.0.0a1-py3-none-any.whl\n"
+  },
+  "installed_wheel": {
+    "exit": 0,
+    "tail": "Processing ./dist/isycofeedback-2.0.0a1-py3-none-any.whl\nInstalling collected packages: isycofeedback\nSuccessfully installed isycofeedback-2.0.0a1\nREPAIR PASS (2 verifications; fixed proposal, no AI)\nSCOPE DENIED\nBUDGET REPAIR_EXHAUSTED (3 verifications)\nLEDGER VALID; retain head externally: a903c37458ef9f205920b5367d40a26ba739ddfb1ffaac3a48cda316180f333e\nTAMPER INVALID\nDOCUMENT REJECTED (unknown confidence, explicit demo rejection)\nEVIDENCE VALID\n2.0.0a1\n/tmp/installed/isycofeedback/__init__.py\n"
+  }
+}

@@ -1,0 +1,38 @@
+stages:
+  - verify
+  - duo-smoke
+
+variables:
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+
+verify:
+  stage: verify
+  image: python:3.12-slim
+  script:
+    - python -m pip install -e '.[dev]'
+    - python -m pytest -q
+    - isycofeedback demo
+    - isycofeedback document-demo
+    - python -m build
+
+verify_web:
+  stage: verify
+  image: node:24-alpine
+  script:
+    - cd web
+    - npm ci
+    - npm run build
+
+# This job exists only for an explicit, manually started Duo trigger check.
+# Start a web pipeline with GITBACK_DUO_SMOKE=1 to enable it.
+duo_smoke_failure:
+  stage: duo-smoke
+  image: python:3.12-slim
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web" && $GITBACK_DUO_SMOKE == "1"'
+      when: on_success
+      allow_failure: false
+    - when: never
+  script:
+    - echo "Intentional GitBack smoke failure to test the GitLab Duo trigger."
+    - python -c 'raise SystemExit("Intentional GitBack Duo trigger smoke failure")'

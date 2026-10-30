@@ -1,0 +1,126 @@
+running bdist_wheel
+running build
+running build_py
+copying src/isycofeedback/cli.py -> build/lib/isycofeedback
+copying src/isycofeedback/workflow_store.py -> build/lib/isycofeedback
+copying src/isycofeedback/workflow.py -> build/lib/isycofeedback
+copying src/isycofeedback/runner.py -> build/lib/isycofeedback
+copying src/isycofeedback/documents/pipeline.py -> build/lib/isycofeedback/documents
+copying src/isycofeedback/collaboration/github.py -> build/lib/isycofeedback/collaboration
+copying src/isycofeedback/operations/runner.py -> build/lib/isycofeedback/operations
+copying src/isycofeedback/operations/persistence/sqlite.py -> build/lib/isycofeedback/operations/persistence
+copying src/isycofeedback/operations/persistence/memory.py -> build/lib/isycofeedback/operations/persistence
+copying src/isycofeedback/operations/persistence/repository.py -> build/lib/isycofeedback/operations/persistence
+running egg_info
+writing src/isycofeedback.egg-info/PKG-INFO
+writing dependency_links to src/isycofeedback.egg-info/dependency_links.txt
+writing entry points to src/isycofeedback.egg-info/entry_points.txt
+writing requirements to src/isycofeedback.egg-info/requires.txt
+writing top-level names to src/isycofeedback.egg-info/top_level.txt
+reading manifest file 'src/isycofeedback.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file 'src/isycofeedback.egg-info/SOURCES.txt'
+installing to build/bdist.linux-x86_64/wheel
+running install
+running install_lib
+creating build/bdist.linux-x86_64/wheel
+creating build/bdist.linux-x86_64/wheel/isycofeedback
+copying build/lib/isycofeedback/manifest.py -> build/bdist.linux-x86_64/wheel/isycofeedback
+copying build/lib/isycofeedback/audit.py -> build/bdist.linux-x86_64/wheel/isycofeedback
+creating build/bdist.linux-x86_64/wheel/isycofeedback/documents
+copying build/lib/isycofeedback/documents/evidence.py -> build/bdist.linux-x86_64/wheel/isycofeedback/documents
+copying build/lib/isycofeedback/documents/validation.py -> build/bdist.linux-x86_64/wheel/isycofeedback/documents
+copying build/lib/isycofeedback/documents/cli.py -> build/bdist.linux-x86_64/wheel/isycofeedback/documents
+copying build/lib/isycofeedback/documents/local_adapter.py -> build/bdist.linux-x86_64/wheel/isycofeedback/documents
+copying build/lib/isycofeedback/documents/attack_demo.py -> build/bdist.linux-x86_64/wheel/isycofeedback/documents
+copying build/lib/isycofeedback/documents/ledger.py -> build/bdist.linux-x86_64/wheel/isycofeedback/documents
+copying build/lib/isycofeedback/documents/render.py -> build/bdist.linux-x86_64/wheel/isycofeedback/documents
+copying build/lib/isycofeedback/documents/__init__.py -> build/bdist.linux-x86_64/wheel/isycofeedback/documents
+copying build/lib/isycofeedback/documents/pipeline.py -> build/bdist.linux-x86_64/wheel/isycofeedback/documents
+copying build/lib/isycofeedback/cli.py -> build/bdist.linux-x86_64/wheel/isycofeedback
+copying build/lib/isycofeedback/retry.py -> build/bdist.linux-x86_64/wheel/isycofeedback
+copying build/lib/isycofeedback/diagnostics.py -> build/bdist.linux-x86_64/wheel/isycofeedback
+creating build/bdist.linux-x86_64/wheel/isycofeedback/collaboration
+copying build/lib/isycofeedback/collaboration/github.py -> build/bdist.linux-x86_64/wheel/isycofeedback/collaboration
+copying build/lib/isycofeedback/collaboration/__init__.py -> build/bdist.linux-x86_64/wheel/isycofeedback/collaboration
+creating build/bdist.linux-x86_64/wheel/isycofeedback/operations
+copying build/lib/isycofeedback/operations/evidence.py -> build/bdist.linux-x86_64/wheel/isycofeedback/operations
+copying build/lib/isycofeedback/operations/canonical.py -> build/bdist.linux-x86_64/wheel/isycofeedback/operations
+copying build/lib/isycofeedback/operations/contracts.py -> build/bdist.linux-x86_64/wheel/isycofeedback/operations
+copying build/lib/isycofeedback/operations/domain.py -> build/bdist.linux-x86_64/wheel/isycofeedback/operations
+creating build/bdist.linux-x86_64/wheel/isycofeedback/operations/persistence
+copying build/lib/isycofeedback/operations/persistence/protocol.py -> build/bdist.linux-x86_64/wheel/isycofeedback/operations/persistence
+copying build/lib/isycofeedback/operations/persistence/errors.py -> build/bdist.linux-x86_64/wheel/isycofeedback/operations/persistence
+copying build/lib/isycofeedback/operations/persistence/sqlite.py -> build/bdist.linux-x86_64/wheel/isycofeedback/operations/persistence
+copying build/lib/isycofeedback/operations/persistence/memory.py -> build/bdist.linux-x86_64/wheel/isycofeedback/operations/persistence
+copying build/lib/isycofeedback/operations/persistence/repository.py -> build/bdist.linux-x86_64/wheel/isycofeedback/operations/persistence
+copying build/lib/isycofeedback/operations/persistence/__init__.py -> build/bdist.linux-x86_64/wheel/isycofeedback/operations/persistence
+copying build/lib/isycofeedback/operations/channels.py -> build/bdist.linux-x86_64/wheel/isycofeedback/operations
+copying build/lib/isycofeedback/operations/__init__.py -> build/bdist.linux-x86_64/wheel/isycofeedback/operations
+copying build/lib/isycofeedback/operations/pipeline.py -> build/bdist.linux-x86_64/wheel/isycofeedback/operations
+copying build/lib/isycofeedback/operations/runner.py -> build/bdist.linux-x86_64/wheel/isycofeedback/operations
+copying build/lib/isycofeedback/repair.py -> build/bdist.linux-x86_64/wheel/isycofeedback
+copying build/lib/isycofeedback/workflow_store.py -> build/bdist.linux-x86_64/wheel/isycofeedback
+copying build/lib/isycofeedback/receipts.py -> build/bdist.linux-x86_64/wheel/isycofeedback
+copying build/lib/isycofeedback/workflow.py -> build/bdist.linux-x86_64/wheel/isycofeedback
+copying build/lib/isycofeedback/demo.py -> build/bdist.linux-x86_64/wheel/isycofeedback
+copying build/lib/isycofeedback/__init__.py -> build/bdist.linux-x86_64/wheel/isycofeedback
+copying build/lib/isycofeedback/__main__.py -> build/bdist.linux-x86_64/wheel/isycofeedback
+copying build/lib/isycofeedback/runner.py -> build/bdist.linux-x86_64/wheel/isycofeedback
+creating build/bdist.linux-x86_64/wheel/isycofeedback/providers
+copying build/lib/isycofeedback/providers/openai_compatible.py -> build/bdist.linux-x86_64/wheel/isycofeedback/providers
+copying build/lib/isycofeedback/providers/__init__.py -> build/bdist.linux-x86_64/wheel/isycofeedback/providers
+running install_egg_info
+Copying src/isycofeedback.egg-info to build/bdist.linux-x86_64/wheel/isycofeedback-2.0.0a1.egg-info
+running install_scripts
+creating build/bdist.linux-x86_64/wheel/isycofeedback-2.0.0a1.dist-info/WHEEL
+creating '/work/dist/.tmp-ssiltgpb/isycofeedback-2.0.0a1-py3-none-any.whl' and adding 'build/bdist.linux-x86_64/wheel' to it
+adding 'isycofeedback/__init__.py'
+adding 'isycofeedback/__main__.py'
+adding 'isycofeedback/audit.py'
+adding 'isycofeedback/cli.py'
+adding 'isycofeedback/demo.py'
+adding 'isycofeedback/diagnostics.py'
+adding 'isycofeedback/manifest.py'
+adding 'isycofeedback/receipts.py'
+adding 'isycofeedback/repair.py'
+adding 'isycofeedback/retry.py'
+adding 'isycofeedback/runner.py'
+adding 'isycofeedback/workflow.py'
+adding 'isycofeedback/workflow_store.py'
+adding 'isycofeedback/collaboration/__init__.py'
+adding 'isycofeedback/collaboration/github.py'
+adding 'isycofeedback/documents/__init__.py'
+adding 'isycofeedback/documents/attack_demo.py'
+adding 'isycofeedback/documents/cli.py'
+adding 'isycofeedback/documents/evidence.py'
+adding 'isycofeedback/documents/ledger.py'
+adding 'isycofeedback/documents/local_adapter.py'
+adding 'isycofeedback/documents/pipeline.py'
+adding 'isycofeedback/documents/render.py'
+adding 'isycofeedback/documents/validation.py'
+adding 'isycofeedback/operations/__init__.py'
+adding 'isycofeedback/operations/canonical.py'
+adding 'isycofeedback/operations/channels.py'
+adding 'isycofeedback/operations/contracts.py'
+adding 'isycofeedback/operations/domain.py'
+adding 'isycofeedback/operations/evidence.py'
+adding 'isycofeedback/operations/pipeline.py'
+adding 'isycofeedback/operations/runner.py'
+adding 'isycofeedback/operations/persistence/__init__.py'
+adding 'isycofeedback/operations/persistence/errors.py'
+adding 'isycofeedback/operations/persistence/memory.py'
+adding 'isycofeedback/operations/persistence/protocol.py'
+adding 'isycofeedback/operations/persistence/repository.py'
+adding 'isycofeedback/operations/persistence/sqlite.py'
+adding 'isycofeedback/providers/__init__.py'
+adding 'isycofeedback/providers/openai_compatible.py'
+adding 'isycofeedback-2.0.0a1.dist-info/LICENSE'
+adding 'isycofeedback-2.0.0a1.dist-info/METADATA'
+adding 'isycofeedback-2.0.0a1.dist-info/WHEEL'
+adding 'isycofeedback-2.0.0a1.dist-info/entry_points.txt'
+adding 'isycofeedback-2.0.0a1.dist-info/top_level.txt'
+adding 'isycofeedback-2.0.0a1.dist-info/RECORD'
+removing build/bdist.linux-x86_64/wheel
+isycofeedback-2.0.0a1-py3-none-any.whl
+

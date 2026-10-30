@@ -1,0 +1,184 @@
+[
+  {
+    "source_project": "trustworthy-document-pipeline",
+    "source_path": "src/trustdocs/pipeline.py",
+    "source_sha256": "8ca5d26f91e01f2bb29b607aa2c39a39e8dc08846068fbf2d288e24720c974bc",
+    "destination": "src/isycofeedback/documents/pipeline.py",
+    "adapted_sha256": "71a9bcaa166c3e699cb4db5104e3ba8a035c99826f113c04ed06248eb1109321"
+  },
+  {
+    "source_project": "trustworthy-document-pipeline",
+    "source_path": "src/trustdocs/evidence.py",
+    "source_sha256": "8169d0e72b255fc3c55cf14519aa289b399b2c9b50cd78772f3f764f248cb80c",
+    "destination": "src/isycofeedback/documents/evidence.py",
+    "adapted_sha256": "20adb23656735c921b405a7269c0aa792a9cdc92a4c1a2e1deb4b911502ae16b"
+  },
+  {
+    "source_project": "trustworthy-document-pipeline",
+    "source_path": "src/trustdocs/ledger.py",
+    "source_sha256": "6286faaf3533dcc44e285e84802cdaad9016fd53d09fbe292564474e3409d5bd",
+    "destination": "src/isycofeedback/documents/ledger.py",
+    "adapted_sha256": "804a05c1f4dbb44e4bf736dd75dd00b2a8a96873783947493926694a45b4ca21"
+  },
+  {
+    "source_project": "trustworthy-document-pipeline",
+    "source_path": "src/trustdocs/validation.py",
+    "source_sha256": "68650fa2f604f281611e23027f3d9256225bbe877a5cfabebf96cb7c7704627b",
+    "destination": "src/isycofeedback/documents/validation.py",
+    "adapted_sha256": "d3e2b92f80b473c8759dd618cfc3cd508f454c5831c7d4b28da148bb45abea5d"
+  },
+  {
+    "source_project": "trustworthy-document-pipeline",
+    "source_path": "src/trustdocs/local_adapter.py",
+    "source_sha256": "8f155cfee5d1da551a809f750643d31377981e1a7fa662a6d9d08a9a0684f87b",
+    "destination": "src/isycofeedback/documents/local_adapter.py",
+    "adapted_sha256": "4285eff032ada7d5dce291f4d66f676cbd10c3f82d730d9e60a32044e94d52c8"
+  },
+  {
+    "source_project": "trustworthy-document-pipeline",
+    "source_path": "src/trustdocs/render.py",
+    "source_sha256": "1761b8b88a6a98e579277ebe225d28761badd7ab1d6151308054ccb9c4bd82d0",
+    "destination": "src/isycofeedback/documents/render.py",
+    "adapted_sha256": "d8dc81e7bdf06848031ed23142ed4165d1caa91b4d5a829325325b5841210f8c"
+  },
+  {
+    "source_project": "trustworthy-document-pipeline",
+    "source_path": "src/trustdocs/attack_demo.py",
+    "source_sha256": "ceee8d0001c467a2e7eed7b5d6efc7d8de84727e8fd68259197af63b12ac5446",
+    "destination": "src/isycofeedback/documents/attack_demo.py",
+    "adapted_sha256": "13e3994c7330fba9d6dec0df4ae8543357304cc079db7a8fafcb0551a00654da"
+  },
+  {
+    "source_project": "trustworthy-document-pipeline",
+    "source_path": "tests/test_pipeline.py",
+    "source_sha256": "2ee27ca6161d4c7924dcb70a1d3559038a3f6228888fa7453a5c4d0b47c8782e",
+    "destination": "tests/test_documents_pipeline.py",
+    "adapted_sha256": "68d1e082170450037f341da959272dc617897206e26ba4efe5e8e5c9fc64de57"
+  },
+  {
+    "source_project": "trustworthy-document-pipeline",
+    "source_path": "tests/test_evidence.py",
+    "source_sha256": "54aaeb59b292cb57b37a6e80bfb811eb510ea404efa8796d468804dcdc70d285",
+    "destination": "tests/test_documents_evidence.py",
+    "adapted_sha256": "379638f1b5346a5c10373404152ffba636ae4579e764db39d67a6d59b3162719"
+  },
+  {
+    "source_project": "trustworthy-document-pipeline",
+    "source_path": "tests/test_ledger.py",
+    "source_sha256": "f22ad8d553520da2411a02a16ae80e462e92aaa16310472ce697c42305996778",
+    "destination": "tests/test_documents_ledger.py",
+    "adapted_sha256": "2bc049fec4d14a794aff004848e7d8bb9040a339a18ff033cc9d53259e772666"
+  },
+  {
+    "source_project": "trustworthy-document-pipeline",
+    "source_path": "tests/test_validation.py",
+    "source_sha256": "37e128ef719c7b7469241273d898baa826938f3f78b52fc78dbbe5f93a99a173",
+    "destination": "tests/test_documents_validation.py",
+    "adapted_sha256": "8d56e748c7f7e52efa288592b2caafc03c1997d1ca04a42fc53ab9ce73437168"
+  },
+  {
+    "source_project": "trustworthy-document-pipeline",
+    "source_path": "tests/test_local_adapter.py",
+    "source_sha256": "acbb02533f2b451c35a79f8bf98fc443598bee1f67fca5467b1b56c5a95bef0a",
+    "destination": "tests/test_documents_local_adapter.py",
+    "adapted_sha256": "d5cdf51b75d871db5fffddb922d98f8c58e02c53532070d4876d2b465bfd9510"
+  },
+  {
+    "source_project": "trustworthy-document-pipeline",
+    "source_path": "tests/test_render.py",
+    "source_sha256": "9ddb479d5f0fed58e498cef7b88cfdf5abc77a93d7208312d4427e4708fcdf34",
+    "destination": "tests/test_documents_render.py",
+    "adapted_sha256": "035d3f436821af977a3ee4112559d665728846cd52ea42803a883d9aae7153bf"
+  },
+  {
+    "source_project": "Operational-Trust-Pipeline",
+    "source_path": "src/otp/canonical.py",
+    "source_sha256": "f844dc4e12d073e02f98b0e17760397d0c4a0e655907919493e64669f9cd2db9",
+    "destination": "src/isycofeedback/operations/canonical.py",
+    "adapted_sha256": "f844dc4e12d073e02f98b0e17760397d0c4a0e655907919493e64669f9cd2db9"
+  },
+  {
+    "source_project": "Operational-Trust-Pipeline",
+    "source_path": "src/otp/contracts.py",
+    "source_sha256": "73d74f5bf1348546432452208b0e2d7a9571ea59bb91815508a27fc3dafc9667",
+    "destination": "src/isycofeedback/operations/contracts.py",
+    "adapted_sha256": "73d74f5bf1348546432452208b0e2d7a9571ea59bb91815508a27fc3dafc9667"
+  },
+  {
+    "source_project": "Operational-Trust-Pipeline",
+    "source_path": "src/otp/domain.py",
+    "source_sha256": "e4c0cbd768d95fb9e0db02b41266493199bd459c6ace8e329f3fba99cfa2fde8",
+    "destination": "src/isycofeedback/operations/domain.py",
+    "adapted_sha256": "7613d349eaec51aa9eab1d34663c9e819ab7ef88d862a59751c8beb3f5a2eb5d"
+  },
+  {
+    "source_project": "Operational-Trust-Pipeline",
+    "source_path": "src/otp/pipeline.py",
+    "source_sha256": "01749f05aa8e05d7a3da0d7380f3dca8ee2f29bc7af9e8f6df2a723da0991c05",
+    "destination": "src/isycofeedback/operations/pipeline.py",
+    "adapted_sha256": "fe5b70ef052e229fc81ed6e90b6b555ea46d5d7bbbec4c6e697cd7352b8879aa"
+  },
+  {
+    "source_project": "Operational-Trust-Pipeline",
+    "source_path": "src/otp/runner.py",
+    "source_sha256": "d17a2e287d963851408a6db2c7523bffe77ac7bc35b362dd5ec00e4d7672b7f3",
+    "destination": "src/isycofeedback/operations/runner.py",
+    "adapted_sha256": "48eeb87a4dd22043c65b129d1f816bd58271f6fe7424b8f93509502c158a37c6"
+  },
+  {
+    "source_project": "Operational-Trust-Pipeline",
+    "source_path": "src/otp/evidence.py",
+    "source_sha256": "344b4f81d7910bcbfb723958ef5fdbe29bd5685eb9ec48af79b4b46246eed8f6",
+    "destination": "src/isycofeedback/operations/evidence.py",
+    "adapted_sha256": "344b4f81d7910bcbfb723958ef5fdbe29bd5685eb9ec48af79b4b46246eed8f6"
+  },
+  {
+    "source_project": "Operational-Trust-Pipeline",
+    "source_path": "src/otp/persistence/protocol.py",
+    "source_sha256": "6a74258d3139d5e892811b972ea12fce4cafb367aeca118ce57b926568951e91",
+    "destination": "src/isycofeedback/operations/persistence/protocol.py",
+    "adapted_sha256": "6a74258d3139d5e892811b972ea12fce4cafb367aeca118ce57b926568951e91"
+  },
+  {
+    "source_project": "Operational-Trust-Pipeline",
+    "source_path": "src/otp/persistence/errors.py",
+    "source_sha256": "f5c05871a4995acf072e8329b739eeedeb7b7f5cc934fd460e393174ed14a2b8",
+    "destination": "src/isycofeedback/operations/persistence/errors.py",
+    "adapted_sha256": "f5c05871a4995acf072e8329b739eeedeb7b7f5cc934fd460e393174ed14a2b8"
+  },
+  {
+    "source_project": "Operational-Trust-Pipeline",
+    "source_path": "src/otp/persistence/sqlite.py",
+    "source_sha256": "bc1ce62da906ce7b9f61c09aece22f3c7914ace6871dafd5350374d38498e4a5",
+    "destination": "src/isycofeedback/operations/persistence/sqlite.py",
+    "adapted_sha256": "bc1ce62da906ce7b9f61c09aece22f3c7914ace6871dafd5350374d38498e4a5"
+  },
+  {
+    "source_project": "Operational-Trust-Pipeline",
+    "source_path": "src/otp/persistence/memory.py",
+    "source_sha256": "ac9d98c660e76e6067afe8c1eb714164d7d70b24fc3c3161457c7e9092615ffc",
+    "destination": "src/isycofeedback/operations/persistence/memory.py",
+    "adapted_sha256": "ac9d98c660e76e6067afe8c1eb714164d7d70b24fc3c3161457c7e9092615ffc"
+  },
+  {
+    "source_project": "Operational-Trust-Pipeline",
+    "source_path": "src/otp/persistence/repository.py",
+    "source_sha256": "aeefbb46b2c2561d32fcb592f6f2ea9cc53a6523be720844f912340ad47b7249",
+    "destination": "src/isycofeedback/operations/persistence/repository.py",
+    "adapted_sha256": "dc2b5dcd07511f387ce68c74e9d0ad59cd7ff188bfcab4f620e0804f90189e22"
+  },
+  {
+    "source_project": "Operational-Trust-Pipeline",
+    "source_path": "src/otp/persistence/__init__.py",
+    "source_sha256": "49d5f9c6266101cb0bb3be995e29b327aaeeada55981f9fa46f3726781ec06fb",
+    "destination": "src/isycofeedback/operations/persistence/__init__.py",
+    "adapted_sha256": "417d733d45590bf3164a09c7e3146c30961529f4fe626e970c4da1d787377eda"
+  },
+  {
+    "source_project": "Operational-Trust-Pipeline",
+    "source_path": "tests/test_persistence.py",
+    "source_sha256": "2de8523342dbdd9e139851500db06b660ee82f413823b3059f289053a755fc01",
+    "destination": "tests/test_operations_persistence.py",
+    "adapted_sha256": "340486b8fffbc6159243f1532855fd1958b3f5b77616f4e93786c99614f727d2"
+  }
+]
