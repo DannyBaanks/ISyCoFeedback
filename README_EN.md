@@ -1,138 +1,81 @@
-# ✨ ISyCoFeedback
+# ISyCoFeedback
 
-<p align="center">
-  <strong>When a project breaks, it should leave you with a way forward.</strong>
-</p>
+Bounded execution, repair, review and independently checkable evidence.
 
-<p align="center">
-  <a href="README.md">🇪🇸 Versión en español</a>
-</p>
+Version **2.0.0a1** merges three owned codebases under one Python package. The
+command workflow combines reviewed project commands, explicit patch proposals,
+durable attempts, rollback, sealed receipts and a hash-chained ledger. Generic
+document review and operational lifecycle components remain available as library APIs.
 
-ISyCoFeedback is a friendly command-line companion for any repository.
+## GitBack mobile web preview
 
-```text
-run it       →  see what happened
-test it      →  know if it really works
-try again    →  stop after three honest attempts
-save proof   →  keep the useful details
-ask for help →  prepare an issue or contribution
+The mobile-first PWA prototype lives in [`web/`](web/README.md). It requires
+Node.js **20.19+** (or **22.12+**) and npm:
+
+```bash
+cd web
+npm ci
+npm run dev
 ```
 
-No magic “fixed!” messages. No endless retry loops. No lost context.
+This is a synthetic-only interface: GitLab and Duo are not connected, no real
+tests run, and review controls do not send remote changes.
 
-Just a calm, repeatable path from **“it broke”** to **“here is what we know.”**
+![GitBack mobile preview](docs/previews/gitback-mobile.png)
 
-> **Status:** `0.1.0 ALPHA` — already demonstrated against the real
-> Chrome-to-Fox repository through an external local contract.
-
-## The idea in one picture
-
-```text
-Your project  →  a tiny local contract  →  ISyCoFeedback  →  a useful next step
+```bash
+python -m pip install -e '.[dev]'
+isycofeedback demo
+isycofeedback document-demo
+python -m pytest -q
 ```
 
-Your project keeps ownership of its commands. ISyCoFeedback gives those
-commands a consistent, human-friendly surface.
+Python 3.11+ is required. The demo runs actual local verification against a
+synthetic fixture using a fixed patch proposal. It demonstrates PASS, DENIED,
+REPAIR_EXHAUSTED and tamper detection. It does not call an AI service.
 
-## A tiny demo
+Configure `.isycofeedback.yml` using `isycofeedback init`, review its commands,
+and use `test`, `retry` or `repair --patch-file proposal.json --allow src/file.py`.
+Use `--run-id` to retain a budget across invocations. A budget permits at most
+three verifications, including the initial failure. Without that option each
+invocation creates a new run; this is not a global per-MR budget.
 
-```console
-$ isycofeedback test
-TEST  FAIL
+`history` reads durable state. After stopping interrupted workers, explicitly use
+`recover` to mark incomplete work UNKNOWN; no external action is silently replayed.
+Durable patch backups are restored only when the current contents still match
+the proposed patch. Later user changes are preserved and unresolved backups remain
+retryable. Proposals/originals containing configured secret values are denied before
+backup persistence. Unknown secrets cannot be detected automatically.
+`audit` verifies receipts and ledger together. Retain the printed ledger head
+independently and use `audit --expected-head HASH` to detect truncation relative
+to that anchor. Hashes do not authenticate human identity or the executing host.
 
-$ isycofeedback retry
-ATTEMPT 1/3  FAIL
-ATTEMPT 2/3  FAIL
-ATTEMPT 3/3  FAIL
+Commands use the host shell. Run untrusted projects in an external sandbox.
+Patch allowlists constrain the patch applier, not arbitrary authorized commands
+or trusted Python callbacks. Linux/Python 3.12 was exercised offline; Windows
+process-tree cleanup and live external integrations remain unverified.
 
-Repair budget exhausted.
-Evidence saved.
-Next steps: issue • fork • pull request
-```
+The document API preserves unknown confidence and binds declared review records
+to extraction hashes; it does not authenticate a reviewer. The operational API
+separates provider acceptance from explicit acknowledgement and preserves crash
+uncertainty. No customer data, vendor SDK, external delivery channel, cloud sync
+or previous GUI bundle is included.
 
-The failure is now captured, reproducible, and ready to be understood by
-another person.
+The live GitLab Duo flow and public deployment are pending. Prior code retains
+its original history and must be disclosed separately from new hackathon work.
+See the [Spanish usage guide](README.md), [provenance](docs/PROVENANCE.md) and
+[MIT license](LICENSE).
 
-## Try it in two minutes
 
-```console
-$ isycofeedback init
-$ isycofeedback doctor
-$ isycofeedback capabilities
-$ isycofeedback test
-```
+## 2026-10-31 — newly versioned files
 
-The first command creates a small `.isycofeedback.yml` file without silently
-inventing a workflow.
+Commit `36f4ac4` brings in 69 files that were previously untracked:
 
-```yaml
-version: 1
-
-project:
-  name: My Project
-
-commands:
-  test: "your test command"
-  verify: "your verification command"
-  reproduce: "your reproduction command"
-
-retry:
-  max_attempts: 3
-
-secrets:            # environment variable NAMES only, never values
-  - GITHUB_TOKEN
-```
-
-**Secrets.** `secrets:` lists environment variable names, not values, so the
-manifest never holds a secret. At run time ISyCoFeedback reads those values
-from the environment and replaces them with `[REDACTED]` in receipts and in the
-stderr it prints. Receipts live in `.isycofeedback/`, which is created with its
-own `.gitignore` so they never ride along in a commit.
-
-## Real-world proof: Chrome-to-Fox
-
-ISyCoFeedback has run the real Chrome-to-Fox test suite with:
-
-```text
-GIT  PASS
-MANIFEST  PASS
-PROJECT  Chrome-to-Fox
-TEST  PASS
-```
-
-See the full transcript in
-[docs/DEMO-CHROME-TO-FOX.md](docs/DEMO-CHROME-TO-FOX.md).
-
-## Privacy and honesty
-
-- Project configuration contains commands, not credentials.
-- Receipts are local and ignored by Git by default.
-- API keys are never written into project manifests or receipts.
-- A project is marked `PASS` only when its real verification command passes.
-- GitHub actions are prepared as dry-runs before any remote change.
-
-## What is ready today?
-
-| Experience | Status |
-|---|---|
-| `init`, `doctor`, `capabilities` | ✅ Working |
-| Run, test, verify, reproduce | ✅ Working |
-| Receipts and evidence | ✅ Working |
-| Three-attempt retry boundary | ✅ Working |
-| Patch-based fake repair | ✅ Working |
-| OpenAI-compatible request builder | ✅ Working |
-| GitHub issue / PR dry-run | ✅ Working |
-| Firefox browser demonstration | 🚧 Next milestone |
-
-## Development
-
-```console
-$ PYTHONPATH=src py -m pytest -q
-27 passed
-```
-
-The roadmap lives in [docs/ROADMAP.md](docs/ROADMAP.md).
-
-## License
-
-MIT. See [LICENSE](LICENSE).
+- `src/isycofeedback/documents/` and `src/isycofeedback/operations/` (including
+  `persistence/` with sqlite, memory and repository), plus `audit.py`, `demo.py`,
+  `workflow.py`, `workflow_store.py` and `__main__.py`.
+- `tests/` — 12 test modules (documents, operations, unified CLI, merge boundaries).
+- `docs/` — `PROVENANCE.md`, `VERIFICATION.md`, `GITBACK_ROADMAP.md`, `GITLAB_CI.md`,
+  `MIGRATION_MANIFEST.json` and the `verification-*.log` records.
+- `web/` — the GitBack Vite app (`index.html`, `src/main.tsx`, `public/`, config).
+- CI: `.github/workflows/ci.yml` and `.gitlab-ci.yml`.
